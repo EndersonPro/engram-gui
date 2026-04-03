@@ -21,7 +21,7 @@
         "maxWidth": 1064,
         "maxHeight": 560,
         "center": true,
-        "resizable": false,
+        "resizable": true,
         "decorations": true
       }
     ],
@@ -31,13 +31,47 @@
   },
   "bundle": {
     "active": true,
-    "targets": "all",
+    "targets": [
+      "dmg",
+      "app"
+    ],
+    "createUpdaterArtifacts": true,
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",
       "icons/128x128@2x.png",
       "icons/icon.icns",
       "icons/icon.ico"
-    ]
+    ],
+    "macOS": {
+      "minimumSystemVersion": "10.15",
+      "dmg": {
+        "appPosition": {
+          "x": 180,
+          "y": 170
+        },
+        "applicationFolderPosition": {
+          "x": 480,
+          "y": 170
+        },
+        "windowSize": {
+          "width": 660,
+          "height": 400
+        }
+      },
+      "entitlements": null,
+      "exceptionDomain": ""
+    },
+    "category": "DeveloperTool",
+    "shortDescription": "Desktop GUI for Engram persistent memory",
+    "longDescription": "Engram GUI provides a native desktop interface to manage, search, and explore your Engram persistent memory system. Built with Tauri for a lightweight, fast macOS experience."
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEUwMzgyNkFFQ0MwNUQ1ODQKUldTRTFRWE1yaVk0NEF3OVRjTUNrZ09VL2hjT2FHTGM1NFFlRWFiNjhFVlk2Rm5STUhlQXd4eG0K",
+      "endpoints": [
+        "https://github.com/EndersonPro/engram-gui/releases/latest/download/latest.json"
+      ]
+    }
   }
 }

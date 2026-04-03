@@ -16,6 +16,11 @@ pub fn run() {
         .setup(|app| {
             let app_handle = app.handle();
 
+            #[cfg(desktop)]
+            app_handle.plugin(tauri_plugin_updater::Builder::new().build())?;
+            #[cfg(desktop)]
+            app_handle.plugin(tauri_plugin_process::init())?;
+
             if app
                 .get_webview_window(default_main_window_label())
                 .is_none()
