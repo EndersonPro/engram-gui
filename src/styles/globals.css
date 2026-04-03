@@ -33,6 +33,11 @@
   --chrome-edge-highlight: color-mix(in oklch, white 64%, var(--surface-overlay));
   --panel-inner-shadow: inset 0 1px 0 color-mix(in oklch, white 72%, transparent);
 
+  /* Background dynamic canvas gradients */
+  --glow-primary: color-mix(in oklch, white 58%, var(--surface-overlay));
+  --glow-secondary: color-mix(in oklch, var(--accent-solid) 18%, transparent);
+  --canvas-glow: radial-gradient(circle at 8% -18%, var(--glow-primary), transparent 50%), radial-gradient(circle at 92% 0%, var(--glow-secondary), transparent 48%);
+
   --type-display: clamp(2rem, 1.6rem + 1.4vw, 2.8rem);
   --type-heading: clamp(1.4rem, 1.15rem + 0.8vw, 1.9rem);
   --type-title: clamp(1.16rem, 1.08rem + 0.42vw, 1.4rem);
@@ -50,9 +55,6 @@
   --motion-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
 
   color: var(--text-primary);
-  background: radial-gradient(circle at 5% -20%, oklch(1 0.03 248 / 0.92), transparent 42%),
-    radial-gradient(circle at 92% 0%, oklch(0.98 0.04 262 / 0.64), transparent 45%),
-    var(--surface-canvas);
   font-family: -apple-system, "SF Pro Text", "SF Pro Display", Inter, system-ui, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
 }
@@ -65,8 +67,17 @@ html,
 body,
 #root {
   width: 100%;
-  min-height: 100vh;
+  height: 100dvh;
   margin: 0;
+  overflow: hidden;
+}
+
+html {
+  /* Light mode canvas — subtle blue tints top-left and right */
+  background:
+    radial-gradient(circle at 5% -20%, oklch(1 0.03 248 / 0.92), transparent 42%),
+    radial-gradient(circle at 92% 0%, oklch(0.98 0.04 262 / 0.64), transparent 45%),
+    var(--surface-canvas);
 }
 
 body {
@@ -74,6 +85,9 @@ body {
   line-height: var(--line-body);
   color: var(--text-primary);
   text-rendering: optimizeLegibility;
+  /* Allow body to scroll internally only when content overflows */
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 label,
@@ -138,5 +152,55 @@ select {
     --glass-blur: 8px;
     --glass-blur-strong: 12px;
     --glass-blur-xl: 0px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  /*
+   * Authentic macOS dark palette
+   * --surface-canvas  →  #1c1c1e  (systemBackground)
+   * --surface-panel   →  #2c2c2e  (secondarySystemBackground)
+   * --surface-panel-elevated → #3a3a3c  (tertiarySystemBackground)
+   */
+  :root {
+    --surface-canvas: oklch(0.140 0 0);
+    --surface-panel: oklch(0.190 0 0 / 0.88);
+    --surface-panel-elevated: oklch(0.240 0 0 / 0.92);
+    --surface-control: oklch(0.270 0 0 / 0.96);
+    --surface-control-hover: oklch(0.310 0 0);
+    --surface-overlay: oklch(0.190 0 0 / 0.82);
+
+    --text-strong: oklch(1 0 0);
+    --text-primary: oklch(0.92 0 0);
+    --text-secondary: oklch(0.73 0 0);
+    --text-muted: oklch(0.55 0 0);
+
+    --accent-solid: oklch(0.63 0.19 252);
+    --accent-solid-hover: oklch(0.70 0.19 252);
+
+    --shadow-soft: 0 2px 8px oklch(0 0 0 / 0.50), 0 0 0 0.5px oklch(0 0 0 / 0.25);
+    --shadow-float: 0 8px 30px oklch(0 0 0 / 0.70);
+
+    --chrome-edge-highlight: oklch(1 0 0 / 0.10);
+    --panel-inner-shadow: inset 0 0.5px 0 oklch(1 0 0 / 0.06);
+
+    --chrome-gradient-top: linear-gradient(
+      180deg,
+      oklch(0.22 0 0 / 0.6) 0%,
+      transparent 100%
+    );
+  }
+
+  /* Single background source — only on html to avoid double-rendering */
+  html {
+    background:
+      radial-gradient(ellipse 70% 55% at 0% 0%, oklch(0.22 0.05 265 / 0.60), transparent 60%),
+      radial-gradient(ellipse 55% 45% at 100% 100%, oklch(0.17 0.04 290 / 0.40), transparent 55%),
+      oklch(0.140 0 0);
+  }
+
+  /* body and #root transparent so html gradient shows through */
+  body, #root {
+    background: transparent;
   }
 }

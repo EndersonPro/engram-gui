@@ -193,6 +193,9 @@ export interface TimelineEntryDto {
   id: string;
   label: string;
   happenedAt: string;
+  content?: string;
+  type?: string;
+  isFocus?: boolean;
 }
 
 export interface TimelineDto {

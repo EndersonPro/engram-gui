@@ -4,21 +4,34 @@ import { describe, expect, it } from "vitest";
 
 import { PageHeading } from "@/components/ui/page-heading";
 import { SectionMenu } from "@/components/ui/section-menu";
+import { SearchIcon } from "@/components/ui/icons";
 
 describe("PageHeading and SectionMenu", () => {
-  it("renders title/subtitle/badge with optional decorative emoji accent", () => {
+  it("renders title/subtitle/badge with SVG icon", () => {
     const html = renderToString(
       createElement(PageHeading, {
         title: "Search memories",
         subtitle: "Live search states",
         badge: "Search",
-        accentSymbol: "🔎",
+        icon: SearchIcon,
       }),
     );
 
     expect(html).toContain("Search memories");
     expect(html).toContain("Live search states");
     expect(html).toContain("Search");
+    expect(html).toContain("<svg");
+  });
+
+  it("falls back to emoji accent when accentSymbol is used (backward compat)", () => {
+    const html = renderToString(
+      createElement(PageHeading, {
+        title: "Dashboard",
+        accentSymbol: "🔎",
+      }),
+    );
+
+    expect(html).toContain("Dashboard");
     expect(html).toContain("🔎");
   });
 

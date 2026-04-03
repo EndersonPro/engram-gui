@@ -6,7 +6,6 @@ import DashboardPage from "@pages/dashboard";
 import MemoriesPage from "@pages/memories";
 import NotFoundPage from "@pages/not-found";
 import SearchPage from "@pages/search";
-import SettingsPage from "@pages/settings";
 import TimelinePage from "@pages/timeline";
 
 export const appRoutes: RouteObject[] = [
@@ -40,9 +39,9 @@ export const appRoutes: RouteObject[] = [
         handle: { inspectorRoute: "/context" },
       },
       {
-        path: "settings",
-        element: <SettingsPage />,
-        handle: { inspectorRoute: "/settings" },
+        path: "context",
+        element: <ContextPage />,
+        handle: { inspectorRoute: "/context" },
       },
       {
         path: "*",

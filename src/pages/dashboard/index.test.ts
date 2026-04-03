@@ -9,8 +9,8 @@ describe("Dashboard Tahoe composition", () => {
   it("renders hero and compact status surface while preserving runtime panel", () => {
     const html = renderToString(createElement(AppProviders, null, createElement(DashboardPage)));
 
-    expect(html).toContain("Runtime command center");
-    expect(html).toContain("Status overview");
+    expect(html).toContain("Engine Controls");
+    expect(html).toContain("System Intelligence");
     expect(html).toContain("Engram Runtime");
     expect(html).toContain("Health");
     expect(html).toContain('data-page-heading="true"');

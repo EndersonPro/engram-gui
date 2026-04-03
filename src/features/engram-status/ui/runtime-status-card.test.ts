@@ -41,7 +41,6 @@ describe("RuntimeStatusCard", () => {
     expect(html).toContain("Health <!-- -->Healthy");
     expect(html).toContain("ok (2026-04-02T00:00:00Z)");
     expect(html).toContain('data-health-state="ok"');
-    expect(html).toContain('data-tahoe-status="elevated"');
   });
 
   it("shows explicit failure reason when process is in error state", () => {

@@ -3,9 +3,9 @@ import { renderToString } from "react-dom/server";
 import { describe, expect, it, vi } from "vitest";
 
 import ContextPage from "@pages/context";
+import DashboardPage from "@pages/dashboard";
 import MemoriesPage from "@pages/memories";
 import SearchPage from "@pages/search";
-import SettingsPage from "@pages/settings";
 import TimelinePage from "@pages/timeline";
 
 vi.mock("@features/memories/api/use-memories", () => ({
@@ -96,11 +96,19 @@ vi.mock("@features/settings/api/use-settings", () => ({
   })),
 }));
 
+vi.mock("@features/engram-status/api/use-health-status", () => ({
+  useHealthStatus: vi.fn(() => ({
+    data: null,
+    isLoading: false,
+    isFetching: false,
+  })),
+}));
+
 describe("route state matrix", () => {
   it("keeps memories error state and retry action", () => {
     const html = renderToString(createElement(MemoriesPage));
 
-    expect(html).toContain("Unable to load memories");
+    expect(html).toContain("memories unavailable");
     expect(html).toContain("Retry memories");
     expect(html).toContain('data-page-heading="true"');
   });
@@ -108,7 +116,7 @@ describe("route state matrix", () => {
   it("keeps search retry affordance from last valid params", () => {
     const html = renderToString(createElement(SearchPage));
 
-    expect(html).toContain("Retry last search");
+    expect(html).toContain('Retry "vector"');
     expect(html).toContain("vector");
   });
 
@@ -126,8 +134,8 @@ describe("route state matrix", () => {
     expect(html).toContain("No project context available yet");
   });
 
-  it("shows settings degraded sources branch", () => {
-    const html = renderToString(createElement(SettingsPage));
+  it("shows dashboard degraded sources branch", () => {
+    const html = renderToString(createElement(DashboardPage));
 
     expect(html).toContain("Some settings sources are currently unavailable");
     expect(html).toContain("stats unavailable");

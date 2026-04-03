@@ -41,11 +41,16 @@ const toLegacyTimeline = (
   return {
     kind: "success",
     data: {
-      entries: [...result.data.before, { ...result.data.focus, isFocus: true }, ...result.data.after].map((entry, index) => ({
-        id: `timeline-${index}`,
-        label: JSON.stringify(entry),
-        happenedAt: "",
-      })),
+      entries: [...result.data.before, { ...result.data.focus, isFocus: true }, ...result.data.after]
+        .map((entry) => ({
+          id: String(entry.id),
+          label: entry.title || "Observation",
+          happenedAt: entry.createdAt || "",
+          content: entry.content || "",
+          type: entry.type || "unknown",
+          isFocus: "isFocus" in entry ? entry.isFocus : false,
+        }))
+        .sort((a, b) => new Date(a.happenedAt).getTime() - new Date(b.happenedAt).getTime()),
     },
   };
 };
