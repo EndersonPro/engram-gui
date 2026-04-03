@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Upstream Engram project
+    url: https://github.com/Gentleman-Programming/engram
+    about: For memory engine, CLI, MCP, or server-side core requests, use the upstream repository.

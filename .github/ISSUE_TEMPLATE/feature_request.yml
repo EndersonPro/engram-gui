@@ -1,0 +1,53 @@
+name: Feature request
+description: Suggest an improvement for Engram GUI
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the idea. Please explain the problem first, then the proposed solution.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem to solve
+      description: What user or workflow pain exists today?
+      placeholder: It is hard to inspect timeline relationships quickly.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the UI/UX or behavior you propose
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Optional alternatives or tradeoffs
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Dashboard
+        - Memories
+        - Search
+        - Timeline
+        - Context
+        - Settings
+        - Runtime controls
+        - Other
+    validations:
+      required: true
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope confirmation
+      options:
+        - label: This proposal targets Engram GUI client scope
+          required: true
+        - label: If upstream Engram changes are required, I will reference that separately
+          required: false

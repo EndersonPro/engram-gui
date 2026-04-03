@@ -1,0 +1,65 @@
+name: Bug report
+description: Report a reproducible problem in Engram GUI
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. Please fill in enough detail so we can reproduce it.
+  - type: input
+    id: summary
+    attributes:
+      label: Short summary
+      description: One sentence describing the problem
+      placeholder: App crashes when opening timeline
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Provide exact steps
+      placeholder: |
+        1. Start app
+        2. Click Timeline
+        3. Scroll to item X
+        4. Error appears
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: OS
+      placeholder: macOS 14.6 / Windows 11 / Ubuntu 24.04
+    validations:
+      required: true
+  - type: input
+    id: app_version
+    attributes:
+      label: App version or commit
+      placeholder: v0.1.0 or commit SHA
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs and screenshots
+      description: Paste logs and attach screenshots if possible
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope confirmation
+      options:
+        - label: This issue is for Engram GUI client behavior (not upstream Engram server internals)
+          required: true
