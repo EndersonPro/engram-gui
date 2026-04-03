@@ -1,7 +1,9 @@
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { PageHeading } from "@/components/ui/page-heading";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { createMemoriesQueryOptions, useMemories } from "@features/memories/api/use-memories";
 
@@ -16,13 +18,13 @@ const MemoriesPage = () => {
 
   return (
     <section className="space-y-4">
-      <Card>
+      <Card density="compact" tone="content">
         <CardHeader>
-          <CardTitle className="text-[var(--type-heading)] leading-[var(--line-heading)]">Recent memories</CardTitle>
-          <CardDescription>Latest observations from live endpoint data.</CardDescription>
+          <PageHeading accentSymbol="🧠" subtitle="Latest observations from live endpoint data." title="Recent memories" />
           <p className="text-[var(--type-caption)] text-[var(--text-muted)]">Query key: {queryKey.join("/")}</p>
         </CardHeader>
         <CardContent>
+          <Separator tone="soft" />
           {(isLoading || isFetching) && !data ? (
             <div className="space-y-2" aria-label="Loading memories">
               <Skeleton className="h-12 w-full" />

@@ -24,13 +24,26 @@ describe("AppShell", () => {
     expect(html).toContain("search");
     expect(html).toContain("Search memories");
     expect(html).toContain("data-shell-layer=\"chrome\"");
+    expect(html).not.toContain("Tahoe Liquid Glass");
+    expect(html).not.toContain("Engram Desktop");
+    expect(html).not.toContain(">Shell<");
   });
 
-  it("keeps keyboard focus ring hooks present in shell nav", () => {
+  it("keeps keyboard focus ring hooks and grouped section actions in shell", () => {
     const html = renderPath("/");
 
     expect(html).toContain("<nav aria-label=\"Primary\"");
+    expect(html).toContain("flex w-full min-w-[720px] flex-row items-center gap-3");
+    expect(html).toContain("min-w-0 flex-1");
     expect(html).toContain("href=\"/settings\"");
-    expect(html).toContain("Tahoe");
+    expect(html).toContain('data-focus-ring="visible"');
+    expect(html).toContain('aria-label="Inspector actions"');
+    expect(html).toContain('aria-hidden="true"');
+    expect(html).not.toContain("📊");
+    expect(html).not.toContain("🧠");
+    expect(html).not.toContain("🔎");
+    expect(html).not.toContain("🕒");
+    expect(html).not.toContain("📎");
+    expect(html).not.toContain("⚙️");
   });
 });

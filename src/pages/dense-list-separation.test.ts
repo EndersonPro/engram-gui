@@ -83,6 +83,7 @@ describe("dense list visual separation", () => {
     expect(html).toContain('data-divider="none"');
     expect(html).toContain("Memory one");
     expect(html).toContain("Memory two");
+    expect(html).toContain('data-tahoe-density="compact"');
     expect(html).not.toContain("<hr");
     expect(html).not.toContain("divide-y");
     expect(html).not.toContain("border-b");
@@ -95,6 +96,7 @@ describe("dense list visual separation", () => {
     expect(html).toContain('data-divider="none"');
     expect(html).toContain("Timeline one");
     expect(html).toContain("Timeline two");
+    expect(html).toContain('data-page-heading="true"');
     expect(html).not.toContain("<hr");
     expect(html).not.toContain("divide-y");
     expect(html).not.toContain("border-b");

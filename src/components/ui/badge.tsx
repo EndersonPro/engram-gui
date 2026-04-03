@@ -1,4 +1,4 @@
-import type { HTMLAttributes } from "react";
+import type { HTMLAttributes, ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -17,18 +17,27 @@ const byVariant: Record<BadgeVariant, string> = {
 
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   variant?: BadgeVariant;
+  accent?: ReactNode;
 }
 
-export const Badge = ({ className, variant = "default", ...props }: BadgeProps) => {
+export const Badge = ({ className, variant = "default", accent, children, ...props }: BadgeProps) => {
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium shadow-[var(--shadow-soft)]",
+        "inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium shadow-[var(--shadow-soft)]",
         byVariant[variant],
         className,
       )}
+      data-badge-accent={accent ? "true" : undefined}
       data-tahoe-contrast="strong"
       {...props}
-    />
+    >
+      {accent ? (
+        <span aria-hidden="true" className="leading-none" data-accent-slot="decorative">
+          {accent}
+        </span>
+      ) : null}
+      <span>{children}</span>
+    </span>
   );
 };

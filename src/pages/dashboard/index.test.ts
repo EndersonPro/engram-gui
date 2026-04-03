@@ -6,18 +6,25 @@ import { AppProviders } from "@/app/providers/app-providers";
 import DashboardPage from "@/pages/dashboard";
 
 describe("Dashboard Tahoe composition", () => {
-  it("renders hero, status, and action surfaces while preserving runtime panel", () => {
+  it("renders hero and compact status surface while preserving runtime panel", () => {
     const html = renderToString(createElement(AppProviders, null, createElement(DashboardPage)));
 
     expect(html).toContain("Runtime command center");
     expect(html).toContain("Status overview");
-    expect(html).toContain("Runtime controls");
-    expect(html).toContain("Engram Runtime Status");
+    expect(html).toContain("Engram Runtime");
+    expect(html).toContain("Health");
+    expect(html).toContain('data-page-heading="true"');
   });
 
-  it("marks dashboard sections as reduced-motion safe containers", () => {
+  it("marks dashboard section as reduced-motion safe and keeps lifecycle actions", () => {
     const html = renderToString(createElement(AppProviders, null, createElement(DashboardPage)));
 
     expect(html).toContain('data-dashboard-motion="reduce-safe"');
+    expect(html).toContain("Start");
+    expect(html).toContain("Stop");
+    expect(html).toContain("Restart");
+    expect(html).toContain("Refresh status");
+    expect(html).not.toContain("🚀");
+    expect(html).not.toContain("🛠️");
   });
 });

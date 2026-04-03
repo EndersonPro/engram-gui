@@ -2,10 +2,12 @@ import { useMemo } from "react";
 
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { PageHeading } from "@/components/ui/page-heading";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Select } from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useMemories } from "@features/memories/api/use-memories";
 import { getLastValidTimelineParamsForRetry, useTimeline } from "@features/timeline/api/use-timeline";
@@ -62,8 +64,11 @@ const TimelinePage = () => {
     <section className="space-y-4">
       <Card>
         <CardHeader>
-          <CardTitle className="text-[var(--type-heading)] leading-[var(--line-heading)]">Observation timeline</CardTitle>
-          <CardDescription>Load before/after context from a selected observation with explicit live states.</CardDescription>
+          <PageHeading
+            accentSymbol="🕒"
+            subtitle="Load before/after context from a selected observation with explicit live states."
+            title="Observation timeline"
+          />
         </CardHeader>
         <CardContent>
           <div className="grid gap-2 md:grid-cols-[1fr_auto] md:items-end">
@@ -98,6 +103,8 @@ const TimelinePage = () => {
               />
             </label>
           </div>
+
+          <Separator tone="soft" />
 
           {!hasValidTarget ? (
             <Alert>

@@ -1,6 +1,8 @@
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { PageHeading } from "@/components/ui/page-heading";
+import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { createSettingsQueryOptions, useSettings } from "@features/settings/api/use-settings";
 
@@ -17,11 +19,15 @@ const SettingsPage = () => {
     <section className="space-y-4">
       <Card>
         <CardHeader>
-          <CardTitle className="text-[var(--type-heading)] leading-[var(--line-heading)]">Runtime settings overview</CardTitle>
-          <CardDescription>Composite live settings from sync status, stats, and local runtime config.</CardDescription>
+          <PageHeading
+            accentSymbol="⚙️"
+            subtitle="Composite live settings from sync status, stats, and local runtime config."
+            title="Runtime settings overview"
+          />
           <p className="text-[var(--type-caption)] text-[var(--text-muted)]">Query key: {queryKey.join("/")}</p>
         </CardHeader>
         <CardContent>
+          <Separator tone="soft" />
           {(isLoading || isFetching) && !data ? (
             <div className="space-y-2" aria-label="Loading settings overview">
               <Skeleton className="h-12 w-full" />

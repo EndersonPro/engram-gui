@@ -2,13 +2,35 @@ import type { HTMLAttributes } from "react";
 
 import { cn } from "@/lib/utils";
 
-export const Card = ({ className, ...props }: HTMLAttributes<HTMLElement>) => (
+type CardTone = "panel" | "content";
+type CardDensity = "comfortable" | "compact";
+
+const toneClasses: Record<CardTone, string> = {
+  panel: "bg-[var(--surface-panel)]/80",
+  content: "bg-[var(--surface-panel-elevated)]/78",
+};
+
+const densityClasses: Record<CardDensity, string> = {
+  comfortable: "p-4",
+  compact: "p-3",
+};
+
+export interface CardProps extends HTMLAttributes<HTMLElement> {
+  tone?: CardTone;
+  density?: CardDensity;
+}
+
+export const Card = ({ className, tone = "panel", density = "comfortable", ...props }: CardProps) => (
   <section
     className={cn(
-      "rounded-2xl border border-[color:var(--chrome-edge-highlight)] bg-[var(--surface-panel)]/80 bg-[image:var(--chrome-gradient-top)] p-4 shadow-[var(--shadow-soft)] [box-shadow:var(--panel-inner-shadow),var(--shadow-soft)] backdrop-blur-[var(--glass-blur-strong)]",
+      "rounded-2xl border border-[color:var(--chrome-edge-highlight)] bg-[image:var(--chrome-gradient-top)] shadow-[var(--shadow-soft)] [box-shadow:var(--panel-inner-shadow),var(--shadow-soft)] backdrop-blur-[var(--glass-blur-strong)]",
+      toneClasses[tone],
+      densityClasses[density],
       className,
     )}
+    data-tahoe-density={density}
     data-tahoe-surface="elevated"
+    data-tahoe-tone={tone}
     {...props}
   />
 );
@@ -18,7 +40,13 @@ export const CardHeader = ({ className, ...props }: HTMLAttributes<HTMLDivElemen
 );
 
 export const CardTitle = ({ className, ...props }: HTMLAttributes<HTMLHeadingElement>) => (
-  <h3 className={cn("text-base font-semibold tracking-[-0.01em] text-[var(--text-strong)]", className)} {...props} />
+  <h3
+    className={cn(
+      "text-[var(--type-title)] leading-[var(--line-title)] font-semibold tracking-[-0.01em] text-[var(--text-strong)]",
+      className,
+    )}
+    {...props}
+  />
 );
 
 export const CardDescription = ({ className, ...props }: HTMLAttributes<HTMLParagraphElement>) => (

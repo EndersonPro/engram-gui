@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { CheckCircleIcon, XCircleIcon } from "@features/engram-status/ui/runtime-status-icons";
 import type { RuntimeProcessState } from "@shared/types/runtime";
 
 export interface RuntimeStatusCardProps {
@@ -7,6 +8,7 @@ export interface RuntimeStatusCardProps {
   processState: RuntimeProcessState;
   failureReason: string | null;
   healthSummary: string;
+  healthOk: boolean;
 }
 
 const processLabel: Record<RuntimeProcessState, string> = {
@@ -38,21 +40,38 @@ export const RuntimeStatusCard = ({
   processState,
   failureReason,
   healthSummary,
+  healthOk,
 }: RuntimeStatusCardProps) => {
+  const HealthIcon = healthOk ? CheckCircleIcon : XCircleIcon;
+  const healthLabel = healthOk ? "Healthy" : "Unhealthy";
+
   return (
-    <Card data-tahoe-status="elevated" data-testid="runtime-status-card">
-      <CardHeader>
-        <CardTitle>Engram Runtime Status</CardTitle>
+    <>
+      <CardHeader className="space-y-0.5">
+        <CardTitle>Engram Runtime</CardTitle>
         <CardDescription>{processCopy[processState]}</CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="mt-2 space-y-2">
         <div className="flex flex-wrap gap-2">
           <Badge variant={binaryAvailable ? "success" : "warning"}>Binary {binaryAvailable ? "Available" : "Unavailable"}</Badge>
           <Badge variant={processVariant[processState]}>Process {processLabel[processState]}</Badge>
+          <Badge
+            variant={healthOk ? "success" : "danger"}
+            accent={
+              <HealthIcon
+                aria-hidden="true"
+                className={healthOk ? "h-3.5 w-3.5 text-[var(--status-success)]" : "h-3.5 w-3.5 text-[var(--status-danger)]"}
+                focusable="false"
+              />
+            }
+            data-health-state={healthOk ? "ok" : "error"}
+          >
+            Health {healthLabel}
+          </Badge>
         </div>
-        <p className="text-sm text-[var(--text-secondary)]">Health: {healthSummary}</p>
-        {failureReason ? <p className="text-sm text-[var(--status-danger)]">Failure reason: {failureReason}</p> : null}
+        <p className="text-xs text-[var(--text-secondary)]">{healthSummary}</p>
+        {failureReason ? <p className="text-xs text-[var(--status-danger)]">Failure reason: {failureReason}</p> : null}
       </CardContent>
-    </Card>
+    </>
   );
 };

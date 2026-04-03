@@ -16,7 +16,17 @@ describe("Liquid Glass global tokens", () => {
     expect(css).toContain("--chrome-edge-highlight");
     expect(css).toContain("--panel-inner-shadow");
     expect(css).toContain("--type-display");
+    expect(css).toContain("--type-title");
+    expect(css).toContain("--type-label");
     expect(css).toContain("--focus-ring");
+  });
+
+  it("uses an apple-first Tahoe font stack with stable fallbacks", () => {
+    const css = readFileSync(globalsPath, "utf-8");
+
+    expect(css).toContain("font-family: -apple-system");
+    expect(css).toContain("\"SF Pro Text\"");
+    expect(css).toContain("Inter");
   });
 
   it("contains stronger Tahoe blur tiers", () => {

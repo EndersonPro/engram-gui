@@ -2,9 +2,11 @@ import { useEffect, useMemo, useState } from "react";
 
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { PageHeading } from "@/components/ui/page-heading";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getLastValidSearchParamsForRetry, useSearch } from "@features/search/api/use-search";
 import { useSearchUiStore } from "@features/search/model/search-ui-store";
@@ -67,8 +69,11 @@ const SearchPage = () => {
     <section className="space-y-4">
       <Card>
         <CardHeader>
-          <CardTitle className="text-[var(--type-heading)] leading-[var(--line-heading)]">Search memories</CardTitle>
-          <CardDescription>Use live Engram search with explicit loading, empty, error, and data states.</CardDescription>
+          <PageHeading
+            accentSymbol="🔎"
+            subtitle="Use live Engram search with explicit loading, empty, error, and data states."
+            title="Search memories"
+          />
         </CardHeader>
         <CardContent>
           <form
@@ -106,6 +111,8 @@ const SearchPage = () => {
           {isGuidanceState ? (
             <Alert>Enter a query to search memories. We only run live search when the query is non-empty.</Alert>
           ) : null}
+
+          <Separator tone="soft" />
 
           {(isLoading || isFetching) && !isGuidanceState ? (
             <div className="space-y-2" aria-label="Searching memories">

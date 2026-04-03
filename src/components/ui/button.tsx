@@ -16,17 +16,26 @@ const byVariant: Record<ButtonVariant, string> = {
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
+  iconLeading?: boolean;
 }
 
-export const Button = ({ className, variant = "primary", type = "button", ...props }: ButtonProps) => {
+export const Button = ({
+  className,
+  variant = "primary",
+  type = "button",
+  iconLeading = false,
+  ...props
+}: ButtonProps) => {
   return (
     <button
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-xl px-3 py-2 text-sm font-medium transition-[background-color,opacity] duration-[var(--motion-duration-fast)] ease-[var(--motion-ease)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)] disabled:pointer-events-none disabled:opacity-50",
+        "inline-flex items-center justify-center rounded-xl px-3 py-2 text-sm font-medium transition-[background-color,opacity] duration-[var(--motion-duration-fast)] ease-[var(--motion-ease)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)] disabled:pointer-events-none disabled:opacity-50",
+        iconLeading ? "gap-2.5" : "gap-2",
         byVariant[variant],
         className,
       )}
       data-focus-ring="visible"
+      data-icon-leading={iconLeading ? "true" : undefined}
       data-tahoe-contrast="strong"
       type={type}
       {...props}

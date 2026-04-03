@@ -1,16 +1,18 @@
 import { Link } from "react-router-dom";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { PageHeading } from "@/components/ui/page-heading";
+import { Separator } from "@/components/ui/separator";
 
 const NotFoundPage = () => {
   return (
     <section className="space-y-4">
       <Card>
         <CardHeader>
-          <p className="text-[var(--type-caption)] font-semibold uppercase tracking-[0.12em] text-[var(--text-muted)]">404</p>
-          <CardTitle className="text-[var(--type-heading)]">Page not found</CardTitle>
+          <PageHeading accentSymbol="🧭" badge="404" title="Page not found" />
         </CardHeader>
         <CardContent>
+          <Separator tone="soft" />
           <p className="max-w-xl text-sm text-[var(--text-secondary)]">
             The route you opened is not part of the current foundation scope. Use the shell navigation to
             return to a supported area.

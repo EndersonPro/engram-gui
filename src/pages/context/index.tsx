@@ -1,6 +1,8 @@
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { PageHeading } from "@/components/ui/page-heading";
+import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { createContextQueryOptions, useContextData } from "@features/context/api/use-context";
 
@@ -16,11 +18,15 @@ const ContextPage = () => {
     <section className="space-y-4">
       <Card>
         <CardHeader>
-          <CardTitle className="text-[var(--type-heading)] leading-[var(--line-heading)]">Project context</CardTitle>
-          <CardDescription>Live context insights with explicit loading, empty, error, and data rendering.</CardDescription>
+          <PageHeading
+            accentSymbol="📎"
+            subtitle="Live context insights with explicit loading, empty, error, and data rendering."
+            title="Project context"
+          />
           <p className="text-[var(--type-caption)] text-[var(--text-muted)]">Query key: {queryKey.join("/")}</p>
         </CardHeader>
         <CardContent>
+          <Separator tone="soft" />
           {(isLoading || isFetching) && !data ? (
             <div className="space-y-2" aria-label="Loading context">
               <Skeleton className="h-12 w-full" />

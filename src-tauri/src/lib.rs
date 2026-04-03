@@ -6,12 +6,6 @@ use std::path::PathBuf;
 use engram_runtime::AppState;
 use tauri::{Manager, WebviewUrl, WebviewWindowBuilder};
 
-#[cfg(target_os = "macos")]
-use tauri::{
-    window::{Effect, EffectsBuilder},
-    TitleBarStyle,
-};
-
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let state = AppState::new(resolve_config_path_override());
@@ -48,12 +42,10 @@ pub fn run() {
 fn build_main_window(app: &tauri::AppHandle) -> tauri::Result<()> {
     let (width, height) = default_main_window_dimensions();
 
-    let window = WebviewWindowBuilder::new(app, default_main_window_label(), WebviewUrl::default())
-        .title("engram-gui")
+    WebviewWindowBuilder::new(app, default_main_window_label(), WebviewUrl::default())
+        .title(default_main_window_title())
         .inner_size(width, height)
         .build()?;
-
-    apply_platform_chrome(&window);
 
     Ok(())
 }
@@ -66,25 +58,9 @@ fn default_main_window_dimensions() -> (f64, f64) {
     (980.0, 680.0)
 }
 
-#[cfg(test)]
-fn should_apply_macos_chrome() -> bool {
-    cfg!(target_os = "macos")
+fn default_main_window_title() -> &'static str {
+    "Engram GUI"
 }
-
-#[cfg(target_os = "macos")]
-fn apply_platform_chrome(window: &tauri::WebviewWindow) {
-    let _ = window.set_title_bar_style(TitleBarStyle::Overlay);
-    let _ = window.set_effects(
-        EffectsBuilder::new()
-            .effect(Effect::HudWindow)
-            .state(tauri::window::EffectState::Active)
-            .radius(20.)
-            .build(),
-    );
-}
-
-#[cfg(not(target_os = "macos"))]
-fn apply_platform_chrome(_window: &tauri::WebviewWindow) {}
 
 fn resolve_config_path_override() -> Option<PathBuf> {
     std::env::var("ENGRAM_GUI_CONFIG_PATH")
@@ -95,8 +71,8 @@ fn resolve_config_path_override() -> Option<PathBuf> {
 #[cfg(test)]
 mod tests {
     use super::{
-        default_main_window_dimensions, default_main_window_label, resolve_config_path_override,
-        should_apply_macos_chrome,
+        default_main_window_dimensions, default_main_window_label, default_main_window_title,
+        resolve_config_path_override,
     };
 
     #[test]
@@ -113,10 +89,6 @@ mod tests {
     fn main_window_defaults_match_single_window_contract() {
         assert_eq!(default_main_window_label(), "main");
         assert_eq!(default_main_window_dimensions(), (980.0, 680.0));
-    }
-
-    #[test]
-    fn macos_chrome_toggle_matches_target_platform() {
-        assert_eq!(should_apply_macos_chrome(), cfg!(target_os = "macos"));
+        assert_eq!(default_main_window_title(), "Engram GUI");
     }
 }

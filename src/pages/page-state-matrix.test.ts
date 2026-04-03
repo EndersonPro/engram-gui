@@ -102,6 +102,7 @@ describe("route state matrix", () => {
 
     expect(html).toContain("Unable to load memories");
     expect(html).toContain("Retry memories");
+    expect(html).toContain('data-page-heading="true"');
   });
 
   it("keeps search retry affordance from last valid params", () => {
@@ -116,6 +117,7 @@ describe("route state matrix", () => {
 
     expect(html).toContain("timeline-observation-select");
     expect(html).toContain("Select an observation");
+    expect(html).toContain('data-tahoe-separator="soft"');
   });
 
   it("shows context empty branch", () => {

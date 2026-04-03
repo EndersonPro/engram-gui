@@ -12,14 +12,17 @@ describe("RuntimeStatusCard", () => {
         processState: "unavailable",
         failureReason: null,
         healthSummary: "Unknown",
+        healthOk: false,
       }),
     );
 
-    expect(html).toContain("Engram Runtime Status");
+    expect(html).toContain("Engram Runtime");
     expect(html).toContain("Binary");
     expect(html).toContain("Process");
     expect(html).toContain("Unavailable");
     expect(html).toContain("No Engram binary detected");
+    expect(html).toContain('data-health-state="error"');
+    expect(html).toContain("Health <!-- -->Unhealthy");
   });
 
   it("renders running state badges with health summary", () => {
@@ -29,13 +32,15 @@ describe("RuntimeStatusCard", () => {
         processState: "running",
         failureReason: null,
         healthSummary: "ok (2026-04-02T00:00:00Z)",
+        healthOk: true,
       }),
     );
 
     expect(html).toContain("Process");
     expect(html).toContain("Running");
-    expect(html).toContain("Health:");
+    expect(html).toContain("Health <!-- -->Healthy");
     expect(html).toContain("ok (2026-04-02T00:00:00Z)");
+    expect(html).toContain('data-health-state="ok"');
     expect(html).toContain('data-tahoe-status="elevated"');
   });
 
@@ -46,6 +51,7 @@ describe("RuntimeStatusCard", () => {
         processState: "error",
         failureReason: "ALREADY_STOPPED",
         healthSummary: "Retryable failure",
+        healthOk: false,
       }),
     );
 
