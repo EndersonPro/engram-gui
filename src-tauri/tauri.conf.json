@@ -14,12 +14,8 @@
       {
         "label": "main",
         "title": "EngramGUI",
-        "width": 1064,
-        "height": 560,
         "minWidth": 1064,
         "minHeight": 560,
-        "maxWidth": 1064,
-        "maxHeight": 560,
         "center": true,
         "resizable": true,
         "decorations": true
