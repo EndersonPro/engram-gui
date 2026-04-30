@@ -48,7 +48,11 @@ export const ScrollArea = ({ className, children, ...props }: HTMLAttributes<HTM
   return (
     <div
       ref={containerRef}
-      className={cn("max-h-[22rem] pr-1", hasOverflow ? "overflow-auto" : "overflow-hidden", className)}
+      className={cn(
+        "pr-1",
+        hasOverflow ? "overflow-auto" : "overflow-hidden",
+        className,
+      )}
       {...props}
     >
       {children}
